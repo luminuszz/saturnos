@@ -1,0 +1,39 @@
+{
+  "name": "saturnos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@slack/bolt": "^3.7.0"
+  },
+  "scripts": {
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "dev": "ts-node-dev ./src/index"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.5",
+    "@babel/node": "^7.14.5",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-decorators": "^7.14.5",
+    "@babel/plugin-transform-typescript": "^7.14.5",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-import-helpers": "^1.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "ts-node-dev": "^1.1.8",
+    "tsyringe": "^4.6.0",
+    "typescript": "^4.4.4"
+  }
+}
