@@ -1,21 +1,12 @@
 import 'reflect-metadata';
 import 'dotenv/config';
+import './container';
 
-import { App as BoltApp } from '@slack/bolt';
-import { Saturnios } from './core/app';
-import { Envs } from './config/envs.enum';
-
-const boltInstance = new BoltApp({
-  signingSecret: Envs.SLACK_SIGNING_SECRET,
-  token: Envs.SLACK_BOT_TOKEN,
-  socketMode: true,
-  appToken: Envs.SLACK_APP_TOKEN,
-});
+import { Bootstrap } from './boostrap';
+import { container } from 'tsyringe';
 
 (async () => {
-  await boltInstance.start(Envs.PORT || 3000);
+  const app = container.resolve<Bootstrap>(Bootstrap);
 
-  console.log('⚡️ Bolt app is running!');
-
-  Saturnios.ignite(boltInstance);
+  await app.run(3000);
 })();
