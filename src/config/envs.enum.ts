@@ -3,4 +3,5 @@ export const Envs = {
   SLACK_BOT_TOKEN: process.env.SLACK_BOT_TOKEN,
   PORT: Number(process.env.PORT),
   SLACK_APP_TOKEN: process.env.SLACK_APP_TOKEN,
+  MONGO_URL_CONNECT: process.env.MONGO_URL_CONNECT,
 };

@@ -1,22 +1,33 @@
 import { container } from 'tsyringe';
-import { TimerRepository } from './core/contracts/timer-repository.contract';
+import { TimerRepositoryContract } from './core/contracts/timer-repository.contract';
 import { Envs } from './config/envs.enum';
 import { LoggerContract } from './core/contracts/logger.contract';
 import { PinoLoggerAdapter } from './adpaters/outbound/pino-logger.adapter';
 import { TimerService } from './core/services/timer.service';
+import { MongoTimerRepository } from './adpaters/outbound/mongo/mongo-timer.repository';
+import { App as BoltApp } from '@slack/bolt';
 
-export class MongoTimerRepository implements TimerRepository {
-  create(payload: any): void {}
-}
+const createBoltInstance = () => {
+  return new BoltApp({
+    signingSecret: Envs.SLACK_SIGNING_SECRET,
+    token: Envs.SLACK_BOT_TOKEN,
+    socketMode: true,
+    appToken: Envs.SLACK_APP_TOKEN,
+  });
+};
 
-container.registerSingleton<TimerRepository>(
-  TimerRepository.name,
+const connectInstance = createBoltInstance();
+
+container.registerInstance<BoltApp>('Connector', connectInstance);
+
+container.registerSingleton<TimerRepositoryContract>(
+  TimerRepositoryContract.name,
   MongoTimerRepository,
 );
 
-container.registerInstance<LoggerContract>(
+container.registerSingleton<LoggerContract>(
   LoggerContract.name,
-  new PinoLoggerAdapter(),
+  PinoLoggerAdapter,
 );
 
 container.registerInstance<typeof Envs>('Envs', Envs);

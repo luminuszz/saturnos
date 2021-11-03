@@ -1,6 +1,6 @@
 module.exports = {
   setupFiles: ['dotenv/config'],
-
+  setupFilesAfterEnv: ['<rootDir>/jest/jest.setup.ts'],
   clearMocks: true,
   verbose: true,
   collectCoverage: true,

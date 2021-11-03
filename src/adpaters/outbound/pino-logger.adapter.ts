@@ -13,7 +13,9 @@ export class PinoLoggerAdapter implements LoggerContract {
     },
   });
 
-  public injectSufix = (sufix: string) => (this.sufix = sufix);
+  public injectSufix(sufix: string) {
+    this.sufix = sufix;
+  }
 
   log(message: any): void {
     this.pino.info(`${this.sufix} : ${JSON.stringify(message)}`);

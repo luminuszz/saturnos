@@ -1,4 +1,5 @@
 import { container, inject, injectable } from 'tsyringe';
+import * as mongoose from 'mongoose';
 import { EnvsType } from './@types/types';
 import { events } from './adpaters/inbound/events';
 
@@ -10,40 +11,34 @@ export class Bootstrap {
   constructor(
     @inject('Envs')
     private readonly environment: EnvsType,
+
+    @inject('Connector')
+    private readonly connector: BoltApp,
   ) {}
 
-  private createBoltInstance() {
-    return new BoltApp({
-      signingSecret: this.environment.SLACK_SIGNING_SECRET,
-      token: this.environment.SLACK_BOT_TOKEN,
-      socketMode: true,
-      appToken: this.environment.SLACK_APP_TOKEN,
-    });
-  }
-
   public async run(port: number = 3000) {
-    const bolt = this.createBoltInstance();
+    await this.registerMongoConnection();
+    this.registerEvents();
 
-    this.registerEvents(bolt);
-    this.registerMongoConnection();
-
-    await bolt.start(port);
+    await this.connector.start(port);
 
     console.log('App is run');
   }
 
-  private registerEvents(connector: BoltApp) {
+  private registerEvents() {
     events.forEach(async (event) => {
       const instance = container.resolve<any>(
         event,
       ) as unknown as EventPaternContract;
 
-      await connector.event(
+      await this.connector.event(
         instance.eventName,
         instance.execute.bind(instance),
       );
     });
   }
 
-  private registerMongoConnection() {}
+  private async registerMongoConnection() {
+    await mongoose.connect(this.environment.MONGO_URL_CONNECT);
+  }
 }
