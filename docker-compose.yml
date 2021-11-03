@@ -6,6 +6,10 @@ services:
     build: .
     ports:
       - '${API_PORT}:3000'
+    volumes:
+      - .:/home/service
+    depends_on:
+      - database
 
   database:
     container_name: database_container
@@ -13,3 +17,8 @@ services:
     restart: always
     ports:
       - '27017:27017'
+    volumes:
+      - mongo_data:/data/mongo
+
+volumes:
+  mongo_data:

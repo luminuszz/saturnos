@@ -1,6 +1,7 @@
 import { EventPaternContract } from './contracts/event-patern.contract';
 import { LoggerContract } from '../../../core/contracts/logger.contract';
 import { inject, injectable } from 'tsyringe';
+import { format, getTimezoneOffset } from 'date-fns-tz';
 import { TimerService } from '../../../core/services/timer.service';
 import { ptBR } from 'date-fns/locale';
 import {
@@ -8,7 +9,7 @@ import {
   SlackEventMiddlewareArgs,
 } from '@slack/bolt/dist/types';
 import { App as BoltApp } from '@slack/bolt';
-import { format, getUnixTime } from 'date-fns';
+import { getUnixTime, parseISO } from 'date-fns';
 
 type Context = SlackEventMiddlewareArgs &
   AllMiddlewareArgs & {
@@ -36,20 +37,22 @@ export class UserWasMentionEvent extends EventPaternContract {
 
   private async createTimer({ event, say, client }: Context) {
     try {
-      const timer = await this.timerService.create({
+      const { end_time } = await this.timerService.create({
         username: event.user,
-        hours: 9,
+        hours: 8,
       });
 
-      const formatedEndTime = format(timer.end_time, 'HH:mm', {
+      const localDate = new Date(end_time).setHours(end_time.getHours() - 3);
+
+      const formatedEndTime = format(localDate, 'hh:mm aa', {
         locale: ptBR,
       });
 
-      await say(`Timer criado com sucesso!`);
+      await say(`Timer criado com sucesso !`);
 
       await say(`Te chamarei as ${formatedEndTime}`);
 
-      const unix = getUnixTime(timer.end_time);
+      const unix = getUnixTime(localDate);
 
       await client.chat.scheduleMessage({
         text: `Timer finalizado as ${formatedEndTime} `,

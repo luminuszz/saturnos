@@ -1,7 +1,6 @@
 FROM node:alpine
 
-WORKDIR /services
-
+WORKDIR /home/service
 
 copy . .
 
