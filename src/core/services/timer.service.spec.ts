@@ -7,11 +7,7 @@ const mockTimerRepository = {
 describe('TimerService', () => {
   let timerService: TimerService;
 
-  beforeEach(() => {
-    timerService = new TimerService(mockTimerRepository);
-
-    mockTimerRepository.create.mockClear();
-  });
+  beforeEach(() => {});
 
   it('it should be able to create a new timer', async () => {});
 });

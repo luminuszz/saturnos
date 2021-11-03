@@ -1,10 +1,10 @@
 import { container } from 'tsyringe';
-import { TimerRepositoryContract } from './core/contracts/timer-repository.contract';
-import { Envs } from './config/envs.enum';
-import { LoggerContract } from './core/contracts/logger.contract';
-import { PinoLoggerAdapter } from './adpaters/outbound/pino-logger.adapter';
-import { TimerService } from './core/services/timer.service';
-import { MongoTimerRepository } from './adpaters/outbound/mongo/mongo-timer.repository';
+import { TimerRepositoryContract } from '../core/contracts/timer-repository.contract';
+import { Envs } from './envs.enum';
+import { LoggerContract } from '../core/contracts/logger.contract';
+import { PinoLoggerAdapter } from '../adpaters/outbound/pino-logger.adapter';
+import { TimerService } from '../core/services/timer.service';
+import { MongoTimerRepository } from '../adpaters/outbound/mongo/mongo-timer.repository';
 import { App as BoltApp } from '@slack/bolt';
 
 const createBoltInstance = () => {

@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  saturnos:
+    container_name: saturnos_bot
+    build: .
+    ports:
+      - '${API_PORT}:3000'
+
+  database:
+    container_name: database_container
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
