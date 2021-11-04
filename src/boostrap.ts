@@ -1,5 +1,5 @@
 import { container, inject, injectable } from 'tsyringe';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { EnvsType } from './@types/types';
 import { events } from './adpaters/inbound/events';
 

@@ -12,7 +12,7 @@
     "tsyringe": "^4.6.0"
   },
   "scripts": {
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "build": "babel src --extensions \".js,.ts,.d.ts\" --out-dir dist --copy-files",
     "dev": "ts-node-dev --respawn ./src/index | pino-pretty",
     "test": "jest"
   },
