@@ -10,7 +10,8 @@
     "mongoose": "^6.0.12",
     "pino": "^7.0.5",
     "tsyringe": "^4.6.0",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "dotenv": "^10.0.0"
   },
   "scripts": {
     "build": "./node_modules/.bin/babel src --extensions \".js,.ts,.d.ts\" --out-dir dist --copy-files",
@@ -33,7 +34,6 @@
     "@types/node": "^16.11.6",
     "@types/pino": "^6.3.12",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
-    "dotenv": "^10.0.0",
     "jest": "^27.3.1",
     "pino-pretty": "^7.1.0",
     "prettier": "^2.4.1",
