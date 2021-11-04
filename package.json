@@ -11,7 +11,8 @@
     "pino": "^7.0.5",
     "tsyringe": "^4.6.0",
     "reflect-metadata": "^0.1.13",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "pino-pretty": "^7.1.0"
   },
   "scripts": {
     "build": "./node_modules/.bin/babel src --extensions \".js,.ts,.d.ts\" --out-dir dist --copy-files",
@@ -35,7 +36,6 @@
     "@types/pino": "^6.3.12",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "jest": "^27.3.1",
-    "pino-pretty": "^7.1.0",
     "prettier": "^2.4.1",
     "ts-jest": "^27.0.7",
     "ts-node-dev": "^1.1.8",
