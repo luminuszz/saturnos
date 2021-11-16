@@ -1,15 +1,14 @@
-import { EventPaternContract } from './contracts/event-patern.contract';
 import { LoggerContract } from '../../../core/contracts/logger.contract';
-import { inject, injectable } from 'tsyringe';
-import { format, getTimezoneOffset } from 'date-fns-tz';
+import { format } from 'date-fns-tz';
 import { TimerService } from '../../../core/services/timer.service';
 import { ptBR } from 'date-fns/locale';
 import {
   AllMiddlewareArgs,
   SlackEventMiddlewareArgs,
 } from '@slack/bolt/dist/types';
-import { App as BoltApp } from '@slack/bolt';
-import { getUnixTime, parseISO } from 'date-fns';
+import { getUnixTime } from 'date-fns';
+import { Injectable } from '@nestjs/common';
+import { EventPaternContract } from './contracts/event-patern.contract';
 
 type Context = SlackEventMiddlewareArgs &
   AllMiddlewareArgs & {
@@ -20,22 +19,14 @@ type Context = SlackEventMiddlewareArgs &
     };
   };
 
-@injectable()
-export class UserWasMentionEvent extends EventPaternContract {
+@Injectable()
+export class CreateTimerEvent implements EventPaternContract {
   constructor(
-    @inject('LoggerContract')
     private readonly logger: LoggerContract,
-
-    @inject(TimerService.name)
     private readonly timerService: TimerService,
+  ) {}
 
-    @inject('Connector')
-    private readonly connector: BoltApp,
-  ) {
-    super('app_mention');
-  }
-
-  private async createTimer({ event, say, client }: Context) {
+  public async execute({ event, say, client }: Context) {
     try {
       const { end_time } = await this.timerService.create({
         username: event.user,
@@ -60,17 +51,9 @@ export class UserWasMentionEvent extends EventPaternContract {
         post_at: unix,
       });
     } catch (e) {
+      console.log(this);
+
       await say('Houve um erro');
-    }
-  }
-
-  async execute(context: Context): Promise<any> {
-    const [_, message] = context.event.text.split('>');
-
-    if (this[message.trim()]) {
-      await this[message.trim()](context);
-    } else {
-      await context.say('Invalid command');
     }
   }
 }

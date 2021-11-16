@@ -1,3 +1,3 @@
-import { UserWasMentionEvent } from './userWasMention.event';
+import { CreateTimerEvent } from './create-timer.event';
 
-export const events = [UserWasMentionEvent];
+export const events = [CreateTimerEvent];

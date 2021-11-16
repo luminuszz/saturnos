@@ -20,3 +20,8 @@ export const timerSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+export const Timer = {
+  name: 'Timer',
+  schema: timerSchema,
+};

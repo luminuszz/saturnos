@@ -4,19 +4,25 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@nestjs/cli": "^8.1.4",
+    "@nestjs/common": "^8.2.1",
+    "@nestjs/config": "^1.1.0",
+    "@nestjs/core": "^8.2.1",
+    "@nestjs/mongoose": "^9.0.1",
     "@slack/bolt": "^3.7.0",
     "date-fns": "^2.25.0",
     "date-fns-tz": "^1.1.6",
+    "dotenv": "^10.0.0",
     "mongoose": "^6.0.12",
     "pino": "^7.0.5",
-    "tsyringe": "^4.6.0",
+    "pino-pretty": "^7.1.0",
     "reflect-metadata": "^0.1.13",
-    "dotenv": "^10.0.0",
-    "pino-pretty": "^7.1.0"
+    "rxjs": "^7.4.0",
+    "tsyringe": "^4.6.0"
   },
   "scripts": {
     "build": "./node_modules/.bin/babel src --extensions \".js,.ts,.d.ts\" --out-dir dist --copy-files",
-    "dev": "ts-node-dev --respawn ./src/index | pino-pretty",
+    "dev": " ./node_modules/.bin/nest start --watch",
     "test": "jest",
     "start:prod": "node ./dist/index.js"
   },

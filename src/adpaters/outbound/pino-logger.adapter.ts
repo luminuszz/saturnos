@@ -1,6 +1,8 @@
 import { LoggerContract } from '../../core/contracts/logger.contract';
 import pino from 'pino';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PinoLoggerAdapter implements LoggerContract {
   private sufix: string = PinoLoggerAdapter.name;
 
