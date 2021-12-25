@@ -29,3 +29,10 @@ SLACK_APP_TOKEN=
 ```bash 
  docker-compose up --build
 ```
+
+
+### Technologies
+
+- Nest.js
+- api-sdk (bolt)
+- mongodb (mongoose)
