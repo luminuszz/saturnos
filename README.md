@@ -8,3 +8,13 @@
 
 
 ![image](https://user-images.githubusercontent.com/48535259/147385568-acb01371-6502-4b17-ab65-11561fd01c42.png)
+
+
+
+## Setap
+
+- install docker 
+- create .env.local with .env.example
+- Saturnos use slack api (bolt), put the slack credetials in .nev
+
+
