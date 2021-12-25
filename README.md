@@ -3,7 +3,6 @@
 
  Saturnos is a timer to help count the working hours, it uses the stack api as a port but its core can be used anywhere as long as it meets your contracts.
 
-
  the timer is default config for 8 hours
 
 
@@ -11,10 +10,22 @@
 
 
 
-## Setap
+## Setup
 
-- install docker 
 - create .env.local with .env.example
-- Saturnos use slack api (bolt), put the slack credetials in .nev
+  Saturnos use slack api (bolt), put the slack credetials in .nev
 
+ see docs ->  https://api.slack.com/tools/bolt
 
+```bash 
+SLACK_SIGNING_SECRET=
+SLACK_BOT_TOKEN=
+PORT=
+SLACK_APP_TOKEN=
+```
+
+- run docker-compose.yml
+
+```bash 
+ docker-compose up --build
+```

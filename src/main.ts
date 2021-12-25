@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { App as BoltApp } from '@slack/bolt';
 import { Envs } from './config/envs.enum';
 import { CreateTimerEvent } from './adpaters/inbound/events/create-timer.event';
+import { ConfigService } from '@nestjs/config';
+import { EnvsType } from './@types/types';
 
 (async () => {
   const bolt = new BoltApp({
@@ -12,16 +14,17 @@ import { CreateTimerEvent } from './adpaters/inbound/events/create-timer.event';
     appToken: Envs.SLACK_APP_TOKEN,
   });
 
-  const nestApp = await NestFactory.createApplicationContext(AppModule);
+  const saturnos = await NestFactory.createApplicationContext(AppModule);
+  const configService = saturnos.get(ConfigService) as ConfigService<EnvsType>;
 
-  const createTimerService = nestApp.get(CreateTimerEvent);
+  const createTimerService = saturnos.get(CreateTimerEvent);
 
   await bolt.event(
     'app_mention',
     createTimerService.execute.bind(createTimerService),
   );
 
-  await bolt.start(Envs.API_PORT || 3000);
+  await bolt.start(configService.get<number>('API_PORT') || 3000);
 
   console.log('⚡️ Bolt app is running!');
 })();

@@ -24,12 +24,4 @@ export class TimerService {
       end_time: endTime,
     });
   }
-
-  async findTimerByUserName(username: string) {
-    return this.timerRepository.findOne({
-      username,
-    });
-  }
-
-  async findTimersInThisDateByUserName(username: string, date: Date) {}
 }
